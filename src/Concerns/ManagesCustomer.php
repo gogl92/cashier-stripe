@@ -34,6 +34,16 @@ trait ManagesCustomer
     }
 
     /**
+     * Retrieve the customer's full name or business name on file.
+     *
+     * @return string|null
+     */
+    public function getStripeName()
+    {
+        return $this->asStripeCustomer()->name;
+    }
+
+    /**
      * Determine if the customer has a Stripe customer ID and throw an exception if not.
      *
      * @return void
