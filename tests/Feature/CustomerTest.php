@@ -36,4 +36,16 @@ class CustomerTest extends FeatureTestCase
         $this->assertInstanceOf(RedirectResponse::class, $response);
         $this->assertStringStartsWith('https://billing.stripe.com/session/', $response->getTargetUrl());
     }
+
+    public function test_stripe_customer_can_get_name_on_stripe()
+    {
+        $user = $this->createCustomer('customers_in_stripe_can_be_updated');
+        $user->createAsStripeCustomer();
+
+        $user->updateStripeCustomer(['name' => 'John Doe']);
+        $this->assertEquals('John Doe', $user->getStripeName());
+
+        $user->updateStripeCustomer(['name' => 'Jenny Doe']);
+        $this->assertEquals('Jenny Doe', $user->getStripeName());
+    }
 }
